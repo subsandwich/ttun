@@ -9,7 +9,7 @@ const domWalker = (domElement) => {
 const manipulateNodes = (elem) => {
     elem.childNodes.forEach(node => {
         if (node.nodeType === 3){
-            node.nodeValue = node.nodeValue.replace(new RegExp("michigan", "i"), "ttun");
+            node.nodeValue = node.nodeValue.replace(new RegExp("michigan", "i"), "TTUN");
             createStrikethroughs(node, elem);
         }
     });
@@ -28,11 +28,17 @@ const createStrikethroughs = (textNode, parentN) => {
 }
 
 
+
 window.addEventListener('load', (event) => {
     console.log("Ready to party!");
-    // Get top level node
-    topElement = document.getElementsByTagName("body")[0];
-    domWalker(topElement);
+    chrome.storage.sync.get(['isEnabled']).then((result)=> {
+        if (result.isEnabled === undefined){
+            chrome.storage.sync.set({'isEnabled': false});
+        } else if (result.isEnabled){
+            console.log("starting");
+            domWalker(document.getElementsByTagName("body")[0]);
+        }
+      });
 
 });
 
