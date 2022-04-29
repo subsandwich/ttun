@@ -1,9 +1,15 @@
+const nonAllowElems = new Set(["SCRIPT", "STYLE"]);
+
 
 const domWalker = (domElement) => {
     for (let i = 0; i < domElement.children.length; i++) {
         domWalker(domElement.children[i]);
     }
-    manipulateNodes(domElement);
+
+    if (!nonAllowElems.has(domElement.tagName)){
+        manipulateNodes(domElement);
+    }
+
 }
 
 const manipulateNodes = (elem) => {
@@ -26,6 +32,7 @@ const createStrikethroughs = (textNode, parentN) => {
         createStrikethroughs(rest, parentN);
     }
 }
+
 
 
 
