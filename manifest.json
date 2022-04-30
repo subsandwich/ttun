@@ -10,11 +10,21 @@
         }
     ],      
     "action": {    
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/block_M16.png",
+            "48": "/images/block_M48.png",
+            "128": "/images/block_M128.png"
+        }
     },
     "permissions": [
         "storage",
         "activeTab",
         "scripting"
-    ]
+    ],
+    "icons": {
+        "16": "/images/block_M16.png",
+        "48": "/images/block_M48.png",
+        "128": "/images/block_M128.png"
+    }
   }
