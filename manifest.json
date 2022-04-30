@@ -1,6 +1,6 @@
 {
     "name": "TTUN",
-    "description": "s",
+    "description": "Replace all instances of Xichigan with TTUN and cross out all M's",
     "version": "1.0",
     "manifest_version": 3,
     "content_scripts": [
