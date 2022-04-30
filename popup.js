@@ -1,32 +1,37 @@
 
-let isChecked = false;
+let isEnabled = false;
 
-let checkbox = document.getElementById("extension-enable");
+const activateButton = document.getElementById("extension-enable");
+
+const setColor = (isActivated) => {
+  if (isActivated) {
+    activateButton.innerText = "Turn Off";
+    activateButton.style.backgroundColor = "#00274C";
+  } else {
+    activateButton.innerText = "Turn On";
+    activateButton.style.backgroundColor = "#BB0000";
+  }
+}
 
 const switchChecked = () => {
-    isChecked = !isChecked;
-    checkbox.checked = isChecked;
-    console.log('switching');
-    console.log(isChecked);
-    chrome.storage.sync.set({'isEnabled': isChecked});
+    isEnabled = !isEnabled;
+    setColor(isEnabled);
+    chrome.storage.sync.set({'isEnabled': isEnabled});
 }
 
 chrome.storage.sync.get(['isEnabled']).then((result) => {
-    console.log("Popup");
-    isChecked = result.isEnabled;
-    checkbox.checked = isChecked;
+    setColor(result.isEnabled);
+    isEnabled = result.isEnabled;
   });
 
-checkbox.addEventListener("change", async ()=>{
+activateButton.addEventListener("click", async ()=>{
     switchChecked();
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
       function: ()=>{
-          console.log("refreshing");
           window.location.reload();
         },
     });
-    console.log("executed");
 });
